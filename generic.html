@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Instagram Flutter Clean Architecture</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo">ポートフォリオ</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="index.html">Home</a></li>
+							<li class="active"><a href="generic.html">Instagram Flutter クリーンアーキテクチャ</a></li>
+						</ul>
+						<ul class="icons">
+							<li><a href="https://github.com/charliewdj" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+									<span class="date">April 25, 2017</span>
+									<h1>Instagram<br />
+									クリーンアーキテクチャ</h1>
+									<p>メンテナブルなアプリケーションの秘訣は何でしょうか？それは、クリーンアーキテクチャーです。<br />
+									コードを独立したレイヤーに分割し、具体的な実装にではなく抽象化に依存するようにします。</p>
+								</header>
+								<div class="image main"><img src="images/cleanarchi.jpg" alt="" /></div>
+								<p>以上の階層構造の画像において、水平矢印（→）は依存関係の流れを表しています。例えば、エンティティは完全に独立しており、ユースケースのみがエンティティに依存するようになっています。以降同様です。</p>
+								<h1>Flutter のクリーンアーキテクチャ</h1>
+								<div class="image main"><img src="images/flow.jpg" alt="" /></div>
+								<h1>Presentation 層</h1>
+								<p>このプレゼンテーション層では、何かを画面に表示するにはウィジェットが必要です。そして、それらのウィジェットから状態を監視するイベントをトリガーします</p>
+								<div class="image main"><img src="images/presentation.jpg" alt="" /></div>
+								<h1>Domain 層</h1>
+								<p>ドメインは、コアのビジネスロジック（ユースケース）とビジネスオブジェクト（エンティティ）のみを含む、最も内側のレイヤーです。そして再び、他のどのレイヤーにも依存しません。ドメインレイヤーは完全に独立していますが、プレゼンテーション層やデータ層などの他のレイヤーは、ここに抽象化/契約クラスが存在するため、この層に依存します。</p>
+								<p>注：ユースケースは、アプリケーションの特定のユースケースのビジネスロジックをカプセル化するクラスになります。</p>
+								<p>ドメインレイヤーのリポジトリを見ると、それはグラデーションを持っていて、データ層とドメイン層の境界に位置しており、データ層のリポジトリからデータを取得しています。これで、どうしてドメイン層が独立しているのか、と思われるかもしれません。しかし、リポジトリがデータ層のリポジトリからデータを取得しているとしても、ドメイン層はそれに依存することなくビジネスロジックを実装することができます。</p>
+								<div class="image main"><img src="images/domain.jpg" alt="" /></div>
+								<p>ドメインレイヤーには、すべての抽象化と契約クラスが存在します。したがって、ドメインレイヤーのリポジトリクラスには、リポジトリが行うことが契約されている内容が含まれます。そして、その実装は、データレイヤーの内部にあり、契約を満たすために実装されます。</p>
+								<p>注:依存性逆転の原則は、SOLID原則の最後の原則です。これは、レイヤー間の境界を、Dartの抽象クラスであるインターフェースで扱うべきであると述べています。</p>
+								<h1>Data 層</h1>
+								<p>データレイヤーには、リポジトリの実装（ドメインレイヤーの契約であり、ここで実装しています）、およびデータソースがあります。リモートデータソースはFirebase（Cloud Firestore）であり、APIや他のDBでも構いません。そして、ローカルデータソースは、ローカルストレージにデータをキャッシュするためのものであり、リポジトリは、リアルデータまたは既にキャッシュされたデータを返すタイミングを決定する場所になります。</p>
+								<p>これらのモデルを見てみましょう。データソースがエンティティの代わりにモデルを返す理由は何でしょうか？ それは、データの変換、例えばJSONからDartオブジェクトへ、DartオブジェクトからJSONへ、または私たちの場合はスナップショットからDartオブジェクトへの変換が必要だからです。</p>
+								<div class="image main"><img src="images/data.jpg" alt="" /></div>
+
+							</section>
+
+							<ul class="actions special">
+								<li><a href="https://github.com/charliewdj/instagram-clean-archi" class="button large">ソースコードを見る</a></li>
+							</ul>
+
+					</div>
+
+				<!-- Footer -->
+					
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; Charlie Widjaja</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
